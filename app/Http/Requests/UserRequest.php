@@ -28,6 +28,7 @@ class UserRequest extends FormRequest
             'name'=> 'required|alpha',
             'name_father'=> 'required|alpha',
             'telephone'=> 'required|unique:users,telephone|regex:/(7)[0-9]{10}/|size:11',
+            'gender' =>'',
             'marka'=> 'required',
             'model'=> 'required',
             'color'=> 'required',

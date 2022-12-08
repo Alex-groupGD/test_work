@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public static function user_create($request){
 
-        $user = DB::table('users')->insert($request->only(['family','name','name_father','telephone'/*,'gender'*/,'adress']));
+        $user = DB::table('users')->insert($request->only(['family','name','name_father','telephone','gender','adress']));
         $user_id = DB::table('users')->where('telephone','=',$request->telephone)->get('id');
         foreach ($user_id as $user=>$value)
         return $value;

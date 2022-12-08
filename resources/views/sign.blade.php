@@ -75,16 +75,16 @@
             <div class="form-group">
                 <label for="formGroupExampleInput2">Ваш пол:</label>
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio1" name="gender"
-                           value="{{isset($user) ? $user->gender : null}}"
+                    <input type="radio" id="customRadio" name="gender"
+                           value="{{isset($user) ? $user->gender : 1}}"
                            class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio1">Мужской</label>
+                    <label class="custom-control-label" for="customRadio">Мужской</label>
                 </div>
                 <div class="custom-control custom-radio">
-                    <input type="radio" id="customRadio2" name="gender"
-                           value="{{isset($user) ? $user->gender : null}}"
+                    <input type="radio" id="customRadio" name="gender"
+                           value="{{isset($user) ? $user->gender : 0}}"
                            class="custom-control-input">
-                    <label class="custom-control-label" for="customRadio2">Женский</label>
+                    <label class="custom-control-label" for="customRadio">Женский</label>
                 </div>
             </div>
             <div class="form-group">

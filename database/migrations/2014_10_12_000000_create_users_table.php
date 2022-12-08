@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('name_father');
             $table->string('telephone')->unique();
+            $table->integer('gender')->default(0);
             /*$table->string('auto');*/
             $table->string('adress');
 
