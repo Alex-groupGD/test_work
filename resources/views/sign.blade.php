@@ -6,7 +6,7 @@
 
 @endsection
 @section('title')
-    {{isset($user) ? 'Изменение данных' ." ".$user->name : 'Регистрация' }}
+    {{isset($user) ? 'Изменение данных' ." ".$user->name : 'Регистрация'  }}
 @endsection
 
 @section('content')

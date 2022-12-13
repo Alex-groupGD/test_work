@@ -3,6 +3,7 @@
 
 @section('title-block')
     Машины {{$user->family}}
+    {{isset($message) ? $message : Null  }}
 @endsection
 
 @section('content')

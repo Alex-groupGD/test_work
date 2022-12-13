@@ -66,55 +66,29 @@ class User extends Authenticatable
         return $value;
     }
 
-    public static function avto_create($request , $user){
 
-            return DB::table('avtos')->insert(['marka' => $request->get('marka'),
-                                                    'model' => $request->get('model'),
-                                                    'color' => $request->get('color'),
-                                                    'gos_num' => $request->get('gos_num'),
-                                                    'user_id' => $user->id,]);
-    }
-
-
-    public static function show_avtos($user){
-        $avtos = DB::table('avtos')->where('user_id' ,'=' , $user->id)->get();
-        return $avtos;
-    }
 
 
     public static function up_user($request , $user){
         DB::table('users')->where('id','=',$user->id)->update($request->only(['family','name','name_father','telephone'/*,'gender'*/,'adress']));
     }
 
-    public static function up_avto($request , $avto){
-       DB::table('avtos')->where('id','=',$avto->id)->update($request->only(['marka','model','color','gos_num']));
-    }
 
     public static function delete_user($user){
          DB::table('users')->where('id','=',$user->id)->delete();
     }
 
-    public static function delete_avto($avto){
-         DB::table('avtos')->where('id','=',$avto)->delete();
+    public static function get_user_count(){
+        return DB::table('users')->count();
+    }
+
+    public static function  get_users_avto($avto){
+
+        $user_id = Avto::get_user_id_avto($avto);
+        $user = DB::table('users')->where('id','=',$user_id)->value('id');
+
+        return $user;
     }
 
 
-    public static function av_where_us($user){
-        $avtos = DB::table('avtos')->where('user_id','=',$user->id)->get();
-        return $avtos;
-    }
-
-    public static function on_parking(){
-        $avto = DB::table('avtos')->where('status','=',1)->get();
-        return $avto;
-    }
-
-    public static function status_on($request){
-        $avto = DB::table('avtos')->where('id','=',$request->subcategory_id)->update(['status' => 1]);
-        return $avto;
-    }
-    public static function status_off($avt){
-        $avto = DB::table('avtos')->where('id','=',$avt->id)->update(['status' => 0]);
-        return $avto;
-    }
 }

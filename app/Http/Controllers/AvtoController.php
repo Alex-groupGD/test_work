@@ -5,7 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Requests\avto_request;
 use App\Http\Requests\avtoup_request;
 use App\Http\Requests\UserRequest;
-use App\Models\avto;
+use App\Models\Avto;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -31,8 +31,8 @@ class AvtoController extends Controller
 
     public function update(avtoup_request $request, avto $avto)
     {
-       /* $user = User::where('id','=',$avto->user_id)->get();*/
-        User::up_avto($request,$avto);
+
+        Avto::up_avto($request,$avto);
         return redirect()->route('users.index');
     }
 
@@ -45,18 +45,24 @@ class AvtoController extends Controller
 
     public function store(avto_request $request , User $user)
     {
-        //foreach ($user as $use=>$value)
-        $avtos = new User();
+        $avtos = new Avto();
         $avtos::avto_create($request,$user);
 
-        $avtos = User::av_where_us($user);
+        $avtos = Avto::av_where_us($user);
         return view('my_avto',compact('avtos'),compact('user'));
     }
 
 
-    public function destroy($avto)
+    public function destroy($avto )
     {
-        User::delete_avto($avto);
-        return redirect()->route('users.index');
+        $count_avto = Avto::get_avto_count($avto);
+        if($count_avto == 1){
+            $user = User::get_users_avto($avto);
+            return redirect()->route('users.show' ,compact('user'));
+        }
+        else {
+            Avto::delete_avto($avto);
+            return redirect()->route('users.index');
+        }
     }
 }

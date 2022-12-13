@@ -6,7 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\userup_request;
-use App\Models\avto;
+use App\Models\Avto;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -22,8 +22,13 @@ class UserController extends Controller
 
         $users = new User();
         $users = $users->get_users();
-
-        return view('all_clients_page',compact('users'));
+        $user_count = User::get_user_count();
+        if($user_count == 0 ){
+            return view('sign');
+        }
+        else {
+            return view('all_clients_page', compact('users'));
+        }
     }
 
 
@@ -47,7 +52,7 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $user = User::user_create($request);
-        User::avto_create($request,$user);
+        Avto::avto_create($request,$user);
 
         return redirect()->route('users.index');
     }
@@ -60,7 +65,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $avtos = User::show_avtos($user);
+        $avtos = Avto::show_avtos($user);
         return view('my_avto',compact('avtos'),compact('user'));
     }
 
